@@ -1,5 +1,7 @@
 # State machines
 
+[Documentation home](index.md)
+
 ## Watch status (`watches.status`)
 
 Enforced by `watch_domain.states.transition`; every transition is a versioned,

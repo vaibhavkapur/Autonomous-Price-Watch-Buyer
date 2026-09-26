@@ -1,5 +1,7 @@
 # Protocol manifest
 
+[Documentation home](index.md)
+
 Pinned protocol releases and how each is used. Anything not covered by a pinned
 specification is labelled **application-defined** here and in code.
 
