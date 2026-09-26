@@ -1,0 +1,48 @@
+{
+  "merchant_id": "merchant_b",
+  "name": "ClickClack Supply",
+  "website": "https://clickclack.fixture.local",
+  "currency": "USD",
+  "tax_rate_bps": 450,
+  "items": [
+    {
+      "sku": "KB-K1-US-B",
+      "canonical_product_id": "keyboard_k1_black_us",
+      "title": "K1 Keyboard US Black",
+      "attributes": {"layout": "US", "color": "black", "condition": "new", "connectivity": "wired"},
+      "bundle": false,
+      "quantity_per_unit": 1,
+      "price_minor": 12500,
+      "shipping_minor": 900,
+      "fees_minor": 0,
+      "stock": 3,
+      "delivery_estimate": "2-4 business days"
+    },
+    {
+      "sku": "KB-K1-UK-B",
+      "canonical_product_id": "keyboard_k1_black_uk",
+      "title": "K1 Keyboard UK Black",
+      "attributes": {"layout": "UK", "color": "black", "condition": "new", "connectivity": "wired"},
+      "bundle": false,
+      "quantity_per_unit": 1,
+      "price_minor": 7900,
+      "shipping_minor": 500,
+      "fees_minor": 0,
+      "stock": 3,
+      "delivery_estimate": "2-4 business days"
+    },
+    {
+      "sku": "KB-K1-US-B-REFURB",
+      "canonical_product_id": "keyboard_k1_black_us",
+      "title": "K1 Keyboard US Black (refurbished)",
+      "attributes": {"layout": "US", "color": "black", "condition": "refurbished", "connectivity": "wired"},
+      "bundle": false,
+      "quantity_per_unit": 1,
+      "price_minor": 6900,
+      "shipping_minor": 500,
+      "fees_minor": 0,
+      "stock": 3,
+      "delivery_estimate": "2-4 business days"
+    }
+  ]
+}

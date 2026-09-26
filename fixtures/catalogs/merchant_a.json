@@ -1,0 +1,48 @@
+{
+  "merchant_id": "merchant_a",
+  "name": "Keyboard Depot",
+  "website": "https://keyboard-depot.fixture.local",
+  "currency": "USD",
+  "tax_rate_bps": 450,
+  "items": [
+    {
+      "sku": "K1-BLK-US",
+      "canonical_product_id": "keyboard_k1_black_us",
+      "title": "K1 Mechanical Keyboard (Black, US)",
+      "attributes": {"layout": "US", "color": "black", "condition": "new", "connectivity": "wired"},
+      "bundle": false,
+      "quantity_per_unit": 1,
+      "price_minor": 12900,
+      "shipping_minor": 1200,
+      "fees_minor": 0,
+      "stock": 5,
+      "delivery_estimate": "3-5 business days"
+    },
+    {
+      "sku": "K1-WHT-US",
+      "canonical_product_id": "keyboard_k1_white_us",
+      "title": "K1 Mechanical Keyboard (White, US)",
+      "attributes": {"layout": "US", "color": "white", "condition": "new", "connectivity": "wired"},
+      "bundle": false,
+      "quantity_per_unit": 1,
+      "price_minor": 8500,
+      "shipping_minor": 500,
+      "fees_minor": 0,
+      "stock": 5,
+      "delivery_estimate": "3-5 business days"
+    },
+    {
+      "sku": "K1-BLK-US-BUNDLE",
+      "canonical_product_id": "keyboard_k1_black_us",
+      "title": "K1 Mechanical Keyboard (Black, US) + wrist rest bundle",
+      "attributes": {"layout": "US", "color": "black", "condition": "new", "connectivity": "wired"},
+      "bundle": true,
+      "quantity_per_unit": 1,
+      "price_minor": 8900,
+      "shipping_minor": 500,
+      "fees_minor": 0,
+      "stock": 5,
+      "delivery_estimate": "3-5 business days"
+    }
+  ]
+}

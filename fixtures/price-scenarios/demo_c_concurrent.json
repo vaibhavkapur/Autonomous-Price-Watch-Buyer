@@ -1,0 +1,9 @@
+{
+  "name": "Demo C — concurrent opportunity",
+  "description": "Both merchants qualify at the same instant. Exactly one checkout may acquire the watch's purchase claim; the cheaper delivered total wins, ties break on merchant id.",
+  "steps": [
+    {"merchant": "merchant_a", "sku": "K1-BLK-US", "item_price_minor": 8900, "shipping_minor": 500, "tax_minor": 400, "fees_minor": 0, "stock": 5},
+    {"merchant": "merchant_b", "sku": "KB-K1-US-B", "item_price_minor": 8700, "shipping_minor": 600, "tax_minor": 400, "fees_minor": 0, "stock": 3}
+  ],
+  "expect": {"winner": "merchant_b", "delivered_total_minor": 9700, "orders": 1}
+}

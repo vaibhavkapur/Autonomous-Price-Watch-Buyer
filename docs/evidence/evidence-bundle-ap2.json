@@ -1,0 +1,1596 @@
+{
+ "profile": "ap2",
+ "demos": {
+  "A": {
+   "scenario": {
+    "name": "Demo A \u2014 deceptive item price",
+    "description": "Item falls to $89 but shipping $12 + tax $4 push the delivered total to $105. Must be rejected for a strict 'below $100' rule.",
+    "steps": [
+     {
+      "merchant": "merchant_a",
+      "sku": "K1-BLK-US",
+      "item_price_minor": 8900,
+      "shipping_minor": 1200,
+      "tax_minor": 400,
+      "fees_minor": 0,
+      "stock": 5
+     }
+    ],
+    "expect": {
+     "delivered_total_minor": 10500,
+     "eligible": false
+    }
+   },
+   "final_status": "watching",
+   "orders": {
+    "merchant_a": 0,
+    "merchant_b": 0
+   },
+   "metrics": {
+    "evaluation_runs": 1,
+    "observations": 1,
+    "observations_rejected": 1
+   },
+   "timeline": [
+    {
+     "at": "2026-09-26T12:00:00+00:00",
+     "type": "watch.created",
+     "details": {
+      "draft": {
+       "original_request": "Buy this exact keyboard if its delivered price drops below $100 before Sunday. Use only these two merchants and buy it once.",
+       "product": {
+        "product_id": "keyboard_k1_black_us",
+        "title": "K1 Mechanical Keyboard \u2014 Black, US layout",
+        "attributes": {
+         "layout": "US",
+         "color": "black",
+         "condition": "new",
+         "connectivity": "wired"
+        },
+        "bundle": false
+       },
+       "merchant_skus": {
+        "merchant_a": "K1-BLK-US"
+       },
+       "quantity": 1,
+       "currency": "USD",
+       "price_rule": {
+        "operator": "lt",
+        "delivered_total_minor": 10000
+       },
+       "allowed_merchants": [
+        "merchant_a"
+       ],
+       "destination_id": "address_1",
+       "expires_at": "2026-09-27T18:00:00Z",
+       "timezone": "Asia/Kolkata",
+       "max_purchases": 1,
+       "authorization_profile": "ap2",
+       "poll_interval_seconds": 60
+      }
+     }
+    },
+    {
+     "at": "2026-09-26T12:00:00+00:00",
+     "type": "authorization.proposed",
+     "details": {
+      "sentences": [
+       "Product: exactly 'K1 Mechanical Keyboard \u2014 Black, US layout' [ke\u2026<222 chars sha256=H5sFh7kfPINEjIE5>",
+       "Quantity: 1 unit. Maximum successful purchases: 1.",
+       "Price rule: delivered total (item + shipping + tax + mandatory fees \u2212 confirmed discounts) must be strictly below USD 100.00.",
+       "Translated ceiling: the largest qualifying delivered total is USD 99.99 (integer cents; the protocol constraint uses an inclusive maximum of 9999).",
+       "Merchants: only Keyboard Depot (K1-BLK-US).",
+       "Deadline: authority ends at 2026-09-27T18:00:00+00:00 (Asia/Kolkata). Nothing may be submitted after this instant, even if scheduled before it.",
+       "Authorization profile: AP2 v0.2 (autonomous mandates).",
+       "Destination: address_1."
+      ],
+      "unknowns": []
+     }
+    },
+    {
+     "at": "2026-09-26T12:00:00+00:00",
+     "type": "authorization.granted",
+     "details": {
+      "authorization_id": "auth_2581dc358c1b46109483",
+      "profile": "ap2",
+      "profile_version": "ap2-v0.2",
+      "reference": "Kx5IMZSXNx3byPNZDrUHLuACzbfQ_H76ogH_YigxedU",
+      "artifact_id": "art_af8c281acfad4f8590e8",
+      "summary": {
+       "profile": "ap2",
+       "profile_version": "ap2-v0.2",
+       "delegation_model": "trusted_agent_provider",
+       "open_checkout_mandate": {
+        "vct": "mandate.checkout.open.1",
+        "allowed_merchants": [
+         "merchant_a"
+        ],
+        "acceptable_items": [
+         "K1-BLK-US"
+        ],
+        "quantity": 1
+       },
+       "open_payment_mandate": {
+        "vct": "mandate.payment.open.1",
+        "amount_range": {
+         "currency": "USD",
+         "min": 0,
+         "max": 9999
+        },
+        "allowed_payees": [
+         "merchant_a"
+        ],
+        "execution_not_after": "2026-09-27T18:00:00Z"
+       },
+       "agent_key_id": "agent-key-1",
+       "expires_at": "2026-09-27T18:00:00Z"
+      }
+     }
+    },
+    {
+     "at": "2026-09-26T12:00:00+00:00",
+     "type": "watch.activated",
+     "details": {
+      "next_check_at": "2026-09-26T12:00:00Z"
+     }
+    }
+   ],
+   "evidence": {
+    "art_af8c281acfad4f8590e8": {
+     "kind": "ap2.consent",
+     "digest": "UZTS7alDPAKUKY5c0Ds-OUmNb1vE2NIWfYTy1q9MbI8",
+     "content": {
+      "disclosures": {
+       "checkout_mandate": "WyJmVS1OcHZmR3FzcnRqanpuU05IYTNRIix7InZjdCI6Im1hbmRhdGUuY2hlY2tv\u2026<667 chars sha256=GLe9xcZAl9w8cCTc>",
+       "items": {
+        "K1-BLK-US": "WyJhanBUaDF2RC1sR2RZUEs1RHpJLUd3Iix7ImlkIjoiSzEtQkxLLVVTIiwidGl0bGUiOiJLMSBNZWNoYW5pY2FsIEtleWJvYXJkIChCbGFjaywgVVMpIn1d"
+       },
+       "merchants": {
+        "merchant_a": "WyJXMEpYVkZOcGRnNlRBQ3c5SHVSdmhnIix7ImlkIjoibWVyY2hhbnRfYSIsIm5hbWUiOiJLZXlib2FyZCBEZXBvdCIsIndlYnNpdGUiOiJodHRwczovL2tleWJvYXJkLWRlcG90LmZpeHR1cmUubG9jYWwifV0"
+       },
+       "payees": {
+        "merchant_a": "WyJjWmpTUTNlTndDVGtKVmtuODdrcmxBIix7ImlkIjoibWVyY2hhbnRfYSIsIm5hbWUiOiJLZXlib2FyZCBEZXBvdCIsIndlYnNpdGUiOiJodHRwczovL2tleWJvYXJkLWRlcG90LmZpeHR1cmUubG9jYWwifV0"
+       },
+       "payment_mandate": "WyJhODlMa3pkS2p6TFlnRlhDT3kxenlRIix7InZjdCI6Im1hbmRhdGUucGF5bWVu\u2026<936 chars sha256=uzVlhebcjhgHSuFU>"
+      },
+      "full_presentation": "eyJ0eXAiOiJkYytzZC1qd3QiLCJhbGciOiJFUzI1NiIsImtpZCI6ImFnZW50LXBy\u2026<2901 chars sha256=Kx5IMZSXNx3byPNZ>",
+      "issuer_jwt": "eyJ0eXAiOiJkYytzZC1qd3QiLCJhbGciOiJFUzI1NiIsImtpZCI6ImFnZW50LXBy\u2026<854 chars sha256=36i1ehZOUkv8rLrP>",
+      "item_merchants": {
+       "K1-BLK-US": "merchant_a"
+      }
+     }
+    }
+   }
+  },
+  "B": {
+   "scenario": {
+    "name": "Demo B \u2014 valid drop",
+    "description": "Item $89 + shipping $5 + tax $4 = $98 delivered. Qualifies for 'below $100'; the agent buys once while the user is absent.",
+    "steps": [
+     {
+      "merchant": "merchant_a",
+      "sku": "K1-BLK-US",
+      "item_price_minor": 8900,
+      "shipping_minor": 500,
+      "tax_minor": 400,
+      "fees_minor": 0,
+      "stock": 5
+     }
+    ],
+    "expect": {
+     "delivered_total_minor": 9800,
+     "eligible": true
+    }
+   },
+   "final_status": "purchased",
+   "orders": {
+    "merchant_a": 1,
+    "merchant_b": 0
+   },
+   "metrics": {
+    "evaluation_runs": 1,
+    "observations": 1,
+    "observations_eligible": 1,
+    "qualifying_offers": 1,
+    "purchase_attempts": 1,
+    "purchases_completed": 1
+   },
+   "timeline": [
+    {
+     "at": "2026-09-26T12:00:00+00:00",
+     "type": "watch.created",
+     "details": {
+      "draft": {
+       "original_request": "Buy this exact keyboard if its delivered price drops below $100 before Sunday. Use only these two merchants and buy it once.",
+       "product": {
+        "product_id": "keyboard_k1_black_us",
+        "title": "K1 Mechanical Keyboard \u2014 Black, US layout",
+        "attributes": {
+         "layout": "US",
+         "color": "black",
+         "condition": "new",
+         "connectivity": "wired"
+        },
+        "bundle": false
+       },
+       "merchant_skus": {
+        "merchant_a": "K1-BLK-US"
+       },
+       "quantity": 1,
+       "currency": "USD",
+       "price_rule": {
+        "operator": "lt",
+        "delivered_total_minor": 10000
+       },
+       "allowed_merchants": [
+        "merchant_a"
+       ],
+       "destination_id": "address_1",
+       "expires_at": "2026-09-27T18:00:00Z",
+       "timezone": "Asia/Kolkata",
+       "max_purchases": 1,
+       "authorization_profile": "ap2",
+       "poll_interval_seconds": 60
+      }
+     }
+    },
+    {
+     "at": "2026-09-26T12:00:00+00:00",
+     "type": "authorization.proposed",
+     "details": {
+      "sentences": [
+       "Product: exactly 'K1 Mechanical Keyboard \u2014 Black, US layout' [ke\u2026<222 chars sha256=H5sFh7kfPINEjIE5>",
+       "Quantity: 1 unit. Maximum successful purchases: 1.",
+       "Price rule: delivered total (item + shipping + tax + mandatory fees \u2212 confirmed discounts) must be strictly below USD 100.00.",
+       "Translated ceiling: the largest qualifying delivered total is USD 99.99 (integer cents; the protocol constraint uses an inclusive maximum of 9999).",
+       "Merchants: only Keyboard Depot (K1-BLK-US).",
+       "Deadline: authority ends at 2026-09-27T18:00:00+00:00 (Asia/Kolkata). Nothing may be submitted after this instant, even if scheduled before it.",
+       "Authorization profile: AP2 v0.2 (autonomous mandates).",
+       "Destination: address_1."
+      ],
+      "unknowns": []
+     }
+    },
+    {
+     "at": "2026-09-26T12:00:00+00:00",
+     "type": "authorization.granted",
+     "details": {
+      "authorization_id": "auth_d620f3bdaef842a59f75",
+      "profile": "ap2",
+      "profile_version": "ap2-v0.2",
+      "reference": "8dBlvAbsre3EdgHObizJpTBkUBMo8XzlD1wfB-q3fRE",
+      "artifact_id": "art_4227502b1e7b4e8e8e28",
+      "summary": {
+       "profile": "ap2",
+       "profile_version": "ap2-v0.2",
+       "delegation_model": "trusted_agent_provider",
+       "open_checkout_mandate": {
+        "vct": "mandate.checkout.open.1",
+        "allowed_merchants": [
+         "merchant_a"
+        ],
+        "acceptable_items": [
+         "K1-BLK-US"
+        ],
+        "quantity": 1
+       },
+       "open_payment_mandate": {
+        "vct": "mandate.payment.open.1",
+        "amount_range": {
+         "currency": "USD",
+         "min": 0,
+         "max": 9999
+        },
+        "allowed_payees": [
+         "merchant_a"
+        ],
+        "execution_not_after": "2026-09-27T18:00:00Z"
+       },
+       "agent_key_id": "agent-key-1",
+       "expires_at": "2026-09-27T18:00:00Z"
+      }
+     }
+    },
+    {
+     "at": "2026-09-26T12:00:00+00:00",
+     "type": "watch.activated",
+     "details": {
+      "next_check_at": "2026-09-26T12:00:00Z"
+     }
+    },
+    {
+     "at": "2026-09-26T12:00:00+00:00",
+     "type": "candidate.found",
+     "details": {
+      "ranking": [
+       {
+        "merchant_id": "merchant_a",
+        "total_minor": 9800,
+        "observation_id": "obs_ab4cf683cc27468e9ec1"
+       }
+      ]
+     }
+    },
+    {
+     "at": "2026-09-26T12:00:00+00:00",
+     "type": "checkout.created",
+     "details": {
+      "merchant_id": "merchant_a",
+      "checkout_id": "chk_4234ad3be8d543769ba4",
+      "checkout_jwt_kid": "verified"
+     }
+    },
+    {
+     "at": "2026-09-26T12:00:00+00:00",
+     "type": "checkout.validated",
+     "details": {
+      "merchant_id": "merchant_a",
+      "checkout_id": "chk_4234ad3be8d543769ba4",
+      "total_minor": 9800,
+      "feed_total_minor": 9800,
+      "reasons": [
+       "price_rule_met total=9800 operator=lt threshold=10000"
+      ]
+     }
+    },
+    {
+     "at": "2026-09-26T12:00:00+00:00",
+     "type": "authorization.prepared",
+     "details": {
+      "profile": "ap2",
+      "profile_version": "ap2-v0.2",
+      "checkout_hash": "huH-3vOizCGyQnZHf1jt9lEeJcWPLx_BLQiMZU10R_8",
+      "reference": "dtZaX-y1XJXA-g7r9gmPIL_5oTZjcB2K74ugu2XBPgs",
+      "self_verification": {
+       "ok": true,
+       "code": null,
+       "description": null
+      }
+     }
+    },
+    {
+     "at": "2026-09-26T12:00:00+00:00",
+     "type": "purchase.claimed",
+     "details": {
+      "attempt_id": "att_5d96c04d2d3e42bd84c2",
+      "merchant_id": "merchant_a",
+      "checkout_id": "chk_4234ad3be8d543769ba4",
+      "total_minor": 9800,
+      "currency": "USD"
+     }
+    },
+    {
+     "at": "2026-09-26T12:00:00+00:00",
+     "type": "payment.authorization",
+     "details": {
+      "attempt_id": "att_5d96c04d2d3e42bd84c2",
+      "ok": true,
+      "error": null,
+      "error_description": null
+     }
+    },
+    {
+     "at": "2026-09-26T12:00:00+00:00",
+     "type": "purchase.submitting",
+     "details": {
+      "attempt_id": "att_5d96c04d2d3e42bd84c2",
+      "idempotency_key": "pw-watch_af13da150c3c47a5980a-0sOXSjgmRlPAn-w-",
+      "payload_digest": "hAe9oc4M5u2qoPXPmaSt76mJjOenR5t4mAHlu5wMuEA"
+     }
+    },
+    {
+     "at": "2026-09-26T12:00:00+00:00",
+     "type": "purchase.completed",
+     "details": {
+      "attempt_id": "att_5d96c04d2d3e42bd84c2",
+      "order_id": "ord_cb596ac74f874959825f",
+      "permalink_url": "https://keyboard-depot.fixture.local/orders/ord_cb596ac74f874959825f",
+      "total_minor": 9800,
+      "currency": "USD",
+      "resolution": "merchant_confirmed"
+     }
+    }
+   ],
+   "evidence": {
+    "art_4227502b1e7b4e8e8e28": {
+     "kind": "ap2.consent",
+     "digest": "zu6M0NDrLd5ForTkFbWu3Of7tKMZXa8eHX85KVQn8ks",
+     "content": {
+      "disclosures": {
+       "checkout_mandate": "WyJUQWdaclItLVlvemtUZGVMTHBVNmlnIix7InZjdCI6Im1hbmRhdGUuY2hlY2tv\u2026<667 chars sha256=xWGORItlhC7h32Eu>",
+       "items": {
+        "K1-BLK-US": "WyJYbGZaRTdkS3k3Y1FDR3lOQm1IVFdBIix7ImlkIjoiSzEtQkxLLVVTIiwidGl0bGUiOiJLMSBNZWNoYW5pY2FsIEtleWJvYXJkIChCbGFjaywgVVMpIn1d"
+       },
+       "merchants": {
+        "merchant_a": "WyIzeWZMVEQtZFdQam56TVYwQU9CM0VRIix7ImlkIjoibWVyY2hhbnRfYSIsIm5hbWUiOiJLZXlib2FyZCBEZXBvdCIsIndlYnNpdGUiOiJodHRwczovL2tleWJvYXJkLWRlcG90LmZpeHR1cmUubG9jYWwifV0"
+       },
+       "payees": {
+        "merchant_a": "WyJPV0NIQ01fMVRuajNlRWp3ZzFIVG5nIix7ImlkIjoibWVyY2hhbnRfYSIsIm5hbWUiOiJLZXlib2FyZCBEZXBvdCIsIndlYnNpdGUiOiJodHRwczovL2tleWJvYXJkLWRlcG90LmZpeHR1cmUubG9jYWwifV0"
+       },
+       "payment_mandate": "WyJZMlZjVEJ5dXRMVVhxUUlhVHlKSkVBIix7InZjdCI6Im1hbmRhdGUucGF5bWVu\u2026<936 chars sha256=aL38byXujErSfDBP>"
+      },
+      "full_presentation": "eyJ0eXAiOiJkYytzZC1qd3QiLCJhbGciOiJFUzI1NiIsImtpZCI6ImFnZW50LXBy\u2026<2901 chars sha256=8dBlvAbsre3EdgHO>",
+      "issuer_jwt": "eyJ0eXAiOiJkYytzZC1qd3QiLCJhbGciOiJFUzI1NiIsImtpZCI6ImFnZW50LXBy\u2026<854 chars sha256=ktpg3xsLya05CEEO>",
+      "item_merchants": {
+       "K1-BLK-US": "merchant_a"
+      }
+     }
+    },
+    "art_617e9725035d4dab87b1": {
+     "kind": "ap2.prepared_presentation",
+     "digest": "JZHehqDToPW-9X2_PAIR4yVakMmxDuqw8CzH__kljnE",
+     "content": {
+      "checkout_hash": "huH-3vOizCGyQnZHf1jt9lEeJcWPLx_BLQiMZU10R_8",
+      "checkout_mandate_chain": "eyJ0eXAiOiJkYytzZC1qd3QiLCJhbGciOiJFUzI1NiIsImtpZCI6ImFnZW50LXBy\u2026<3831 chars sha256=Ycu9_uUDeMeyLl8q>",
+      "payment_mandate_chain": "eyJ0eXAiOiJkYytzZC1qd3QiLCJhbGciOiJFUzI1NiIsImtpZCI6ImFnZW50LXBy\u2026<3024 chars sha256=Cylp-eIVRMnzkK6P>"
+     }
+    },
+    "art_af93a76fa19541398a58": {
+     "kind": "ap2.payment_receipt",
+     "digest": "mwtnK6ib_rXF9X9N9H7815LW3nL_zk5Pwx3OWgo1GrM",
+     "content": {
+      "payment_receipt": "eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiIsImtpZCI6ImNyZWRlbnRpYWwtcHJv\u2026<432 chars sha256=CiB43OJSpiyLrOxN>"
+     }
+    },
+    "art_adaa5597242242778bf9": {
+     "kind": "ucp.complete_request",
+     "digest": "hAe9oc4M5u2qoPXPmaSt76mJjOenR5t4mAHlu5wMuEA",
+     "content": {
+      "ap2": {
+       "checkout_mandate": "eyJ0eXAiOiJkYytzZC1qd3QiLCJhbGciOiJFUzI1NiIsImtpZCI6ImFnZW50LXBy\u2026<3831 chars sha256=Ycu9_uUDeMeyLl8q>"
+      },
+      "payment": {
+       "instruments": [
+        {
+         "credential": {
+          "token": "<redacted-credential>",
+          "type": "payment_credential+jwt"
+         },
+         "handler_id": "ap2_fixture_handler",
+         "id": "pi_att_5d96c04d2d3e42bd84c2",
+         "type": "ap2_mandate"
+        }
+       ]
+      }
+     }
+    },
+    "art_8e0f2e2d311d4a2d9eb5": {
+     "kind": "ucp.completed_checkout",
+     "digest": "i7gQY-3R53GlRN5HNHWa1gKdODC_GJ0m3kJG83bv0o4",
+     "content": {
+      "ap2": {
+       "checkout_jwt": "eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiIsImtpZCI6Im1lcmNoYW50LWEta2V5\u2026<930 chars sha256=huH-3vOizCGyQnZH>",
+       "checkout_receipt": "eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiIsImtpZCI6Im1lcmNoYW50LWEta2V5\u2026<396 chars sha256=ABiaMT7FUbGgQywk>"
+      },
+      "buyer": {
+       "email": "user_demo@example.invalid",
+       "full_name": "Demo User"
+      },
+      "currency": "USD",
+      "expires_at": "2026-09-26T18:00:00Z",
+      "fulfillment": {
+       "address": {
+        "city": "Springfield",
+        "country": "US",
+        "line1": "1 Example Way",
+        "name": "Demo User",
+        "postal_code": "62701",
+        "region": "IL"
+       }
+      },
+      "id": "chk_4234ad3be8d543769ba4",
+      "line_items": [
+       {
+        "id": "li_1",
+        "item": {
+         "id": "K1-BLK-US",
+         "price": 8900,
+         "title": "K1 Mechanical Keyboard (Black, US)"
+        },
+        "quantity": 1,
+        "totals": [
+         {
+          "amount": 8900,
+          "type": "subtotal"
+         },
+         {
+          "amount": 8900,
+          "type": "total"
+         }
+        ]
+       }
+      ],
+      "links": [
+       {
+        "type": "privacy_policy",
+        "url": "https://keyboard-depot.fixture.local/privacy"
+       },
+       {
+        "type": "terms_of_service",
+        "url": "https://keyboard-depot.fixture.local/tos"
+       }
+      ],
+      "merchant": {
+       "id": "merchant_a",
+       "name": "Keyboard Depot",
+       "website": "https://keyboard-depot.fixture.local"
+      },
+      "messages": [],
+      "order": {
+       "id": "ord_cb596ac74f874959825f",
+       "permalink_url": "https://keyboard-depot.fixture.local/orders/ord_cb596ac74f874959825f"
+      },
+      "payment": {
+       "handlers": {
+        "dev.ucp.ap2_mandate_compatible_handlers": [
+         {
+          "ap2_version": "0.2",
+          "available_instruments": [
+           {
+            "type": "ap2_mandate"
+           }
+          ],
+          "id": "ap2_fixture_handler",
+          "schema": "https://ap2-protocol.org/schemas/ap2-handler.json",
+          "spec": "https://ap2-protocol.org/ap2/specification/",
+          "version": "2026-08-25"
+         }
+        ],
+        "local.pricewatch.vi_mandate_handlers": [
+         {
+          "available_instruments": [
+           {
+            "type": "vi_mandate"
+           }
+          ],
+          "id": "vi_fixture_handler",
+          "spec": "https://github.com/agent-intent/verifiable-intent",
+          "version": "2026-08-25",
+          "vi_version": "0.1-draft"
+         }
+        ]
+       }
+      },
+      "status": "completed",
+      "totals": [
+       {
+        "amount": 8900,
+        "type": "subtotal"
+       },
+       {
+        "amount": 500,
+        "type": "fulfillment"
+       },
+       {
+        "amount": 400,
+        "type": "tax"
+       },
+       {
+        "amount": 9800,
+        "type": "total"
+       }
+      ],
+      "ucp": {
+       "payment_handlers": {
+        "dev.ucp.ap2_mandate_compatible_handlers": [
+         {
+          "ap2_version": "0.2",
+          "available_instruments": [
+           {
+            "type": "ap2_mandate"
+           }
+          ],
+          "id": "ap2_fixture_handler",
+          "schema": "https://ap2-protocol.org/schemas/ap2-handler.json",
+          "spec": "https://ap2-protocol.org/ap2/specification/",
+          "version": "2026-08-25"
+         }
+        ],
+        "local.pricewatch.vi_mandate_handlers": [
+         {
+          "available_instruments": [
+           {
+            "type": "vi_mandate"
+           }
+          ],
+          "id": "vi_fixture_handler",
+          "spec": "https://github.com/agent-intent/verifiable-intent",
+          "version": "2026-08-25",
+          "vi_version": "0.1-draft"
+         }
+        ]
+       },
+       "status": "success",
+       "version": "2026-08-25"
+      }
+     }
+    },
+    "art_fe0e92a1002b44ef9b99": {
+     "kind": "ap2.checkout_receipt",
+     "digest": "yyKLkAUFEorlew1susonY9HL1YW0Kvl1Eupb05GXZao",
+     "content": {
+      "checkout_receipt": "eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiIsImtpZCI6Im1lcmNoYW50LWEta2V5\u2026<396 chars sha256=ABiaMT7FUbGgQywk>"
+     }
+    }
+   }
+  },
+  "C": {
+   "scenario": {
+    "name": "Demo C \u2014 concurrent opportunity",
+    "description": "Both merchants qualify at the same instant. Exactly one checkout may acquire the watch's purchase claim; the cheaper delivered total wins, ties break on merchant id.",
+    "steps": [
+     {
+      "merchant": "merchant_a",
+      "sku": "K1-BLK-US",
+      "item_price_minor": 8900,
+      "shipping_minor": 500,
+      "tax_minor": 400,
+      "fees_minor": 0,
+      "stock": 5
+     },
+     {
+      "merchant": "merchant_b",
+      "sku": "KB-K1-US-B",
+      "item_price_minor": 8700,
+      "shipping_minor": 600,
+      "tax_minor": 400,
+      "fees_minor": 0,
+      "stock": 3
+     }
+    ],
+    "expect": {
+     "winner": "merchant_b",
+     "delivered_total_minor": 9700,
+     "orders": 1
+    }
+   },
+   "final_status": "purchased",
+   "orders": {
+    "merchant_a": 0,
+    "merchant_b": 1
+   },
+   "metrics": {
+    "evaluation_runs": 1,
+    "observations": 2,
+    "observations_eligible": 2,
+    "qualifying_offers": 2,
+    "purchase_attempts": 1,
+    "purchases_completed": 1
+   },
+   "timeline": [
+    {
+     "at": "2026-09-26T12:00:00+00:00",
+     "type": "watch.created",
+     "details": {
+      "draft": {
+       "original_request": "Buy this exact keyboard if its delivered price drops below $100 before Sunday. Use only these two merchants and buy it once.",
+       "product": {
+        "product_id": "keyboard_k1_black_us",
+        "title": "K1 Mechanical Keyboard \u2014 Black, US layout",
+        "attributes": {
+         "layout": "US",
+         "color": "black",
+         "condition": "new",
+         "connectivity": "wired"
+        },
+        "bundle": false
+       },
+       "merchant_skus": {
+        "merchant_a": "K1-BLK-US",
+        "merchant_b": "KB-K1-US-B"
+       },
+       "quantity": 1,
+       "currency": "USD",
+       "price_rule": {
+        "operator": "lt",
+        "delivered_total_minor": 10000
+       },
+       "allowed_merchants": [
+        "merchant_a",
+        "merchant_b"
+       ],
+       "destination_id": "address_1",
+       "expires_at": "2026-09-27T18:00:00Z",
+       "timezone": "Asia/Kolkata",
+       "max_purchases": 1,
+       "authorization_profile": "ap2",
+       "poll_interval_seconds": 60
+      }
+     }
+    },
+    {
+     "at": "2026-09-26T12:00:00+00:00",
+     "type": "authorization.proposed",
+     "details": {
+      "sentences": [
+       "Product: exactly 'K1 Mechanical Keyboard \u2014 Black, US layout' [ke\u2026<222 chars sha256=H5sFh7kfPINEjIE5>",
+       "Quantity: 1 unit. Maximum successful purchases: 1.",
+       "Price rule: delivered total (item + shipping + tax + mandatory fees \u2212 confirmed discounts) must be strictly below USD 100.00.",
+       "Translated ceiling: the largest qualifying delivered total is USD 99.99 (integer cents; the protocol constraint uses an inclusive maximum of 9999).",
+       "Merchants: only Keyboard Depot (K1-BLK-US), ClickClack Supply (KB-K1-US-B).",
+       "Deadline: authority ends at 2026-09-27T18:00:00+00:00 (Asia/Kolkata). Nothing may be submitted after this instant, even if scheduled before it.",
+       "Authorization profile: AP2 v0.2 (autonomous mandates).",
+       "Destination: address_1."
+      ],
+      "unknowns": []
+     }
+    },
+    {
+     "at": "2026-09-26T12:00:00+00:00",
+     "type": "authorization.granted",
+     "details": {
+      "authorization_id": "auth_6b35d0491e634ecf831d",
+      "profile": "ap2",
+      "profile_version": "ap2-v0.2",
+      "reference": "2mkCzVkA_3IYCKp2uTK6E17g21s9YlZgVYfpfDW_BX4",
+      "artifact_id": "art_05d11369d3f24fb8bd93",
+      "summary": {
+       "profile": "ap2",
+       "profile_version": "ap2-v0.2",
+       "delegation_model": "trusted_agent_provider",
+       "open_checkout_mandate": {
+        "vct": "mandate.checkout.open.1",
+        "allowed_merchants": [
+         "merchant_a",
+         "merchant_b"
+        ],
+        "acceptable_items": [
+         "K1-BLK-US",
+         "KB-K1-US-B"
+        ],
+        "quantity": 1
+       },
+       "open_payment_mandate": {
+        "vct": "mandate.payment.open.1",
+        "amount_range": {
+         "currency": "USD",
+         "min": 0,
+         "max": 9999
+        },
+        "allowed_payees": [
+         "merchant_a",
+         "merchant_b"
+        ],
+        "execution_not_after": "2026-09-27T18:00:00Z"
+       },
+       "agent_key_id": "agent-key-1",
+       "expires_at": "2026-09-27T18:00:00Z"
+      }
+     }
+    },
+    {
+     "at": "2026-09-26T12:00:00+00:00",
+     "type": "watch.activated",
+     "details": {
+      "next_check_at": "2026-09-26T12:00:00Z"
+     }
+    },
+    {
+     "at": "2026-09-26T12:00:00+00:00",
+     "type": "candidate.found",
+     "details": {
+      "ranking": [
+       {
+        "merchant_id": "merchant_b",
+        "total_minor": 9700,
+        "observation_id": "obs_dd984747bddf42018bea"
+       },
+       {
+        "merchant_id": "merchant_a",
+        "total_minor": 9800,
+        "observation_id": "obs_46204a42655b4be2a000"
+       }
+      ]
+     }
+    },
+    {
+     "at": "2026-09-26T12:00:00+00:00",
+     "type": "checkout.created",
+     "details": {
+      "merchant_id": "merchant_b",
+      "checkout_id": "chk_230a39f7ec744d3abcd0",
+      "checkout_jwt_kid": "verified"
+     }
+    },
+    {
+     "at": "2026-09-26T12:00:00+00:00",
+     "type": "checkout.validated",
+     "details": {
+      "merchant_id": "merchant_b",
+      "checkout_id": "chk_230a39f7ec744d3abcd0",
+      "total_minor": 9700,
+      "feed_total_minor": 9700,
+      "reasons": [
+       "price_rule_met total=9700 operator=lt threshold=10000"
+      ]
+     }
+    },
+    {
+     "at": "2026-09-26T12:00:00+00:00",
+     "type": "authorization.prepared",
+     "details": {
+      "profile": "ap2",
+      "profile_version": "ap2-v0.2",
+      "checkout_hash": "IJSATAcZlTqGqxilAqj_QzLMoUNZFT2ext3A2i45GJo",
+      "reference": "nqcVpxO1pttJ_sbsaPAUxYF_WnTU26_eFGhCEEVPkbc",
+      "self_verification": {
+       "ok": true,
+       "code": null,
+       "description": null
+      }
+     }
+    },
+    {
+     "at": "2026-09-26T12:00:00+00:00",
+     "type": "purchase.claimed",
+     "details": {
+      "attempt_id": "att_4a0b4e23006946feb776",
+      "merchant_id": "merchant_b",
+      "checkout_id": "chk_230a39f7ec744d3abcd0",
+      "total_minor": 9700,
+      "currency": "USD"
+     }
+    },
+    {
+     "at": "2026-09-26T12:00:00+00:00",
+     "type": "payment.authorization",
+     "details": {
+      "attempt_id": "att_4a0b4e23006946feb776",
+      "ok": true,
+      "error": null,
+      "error_description": null
+     }
+    },
+    {
+     "at": "2026-09-26T12:00:00+00:00",
+     "type": "purchase.submitting",
+     "details": {
+      "attempt_id": "att_4a0b4e23006946feb776",
+      "idempotency_key": "pw-watch_e364cf3a107c42fbb12e-YEAEey_6PHIYYp01",
+      "payload_digest": "A3JN_Rzi4code5uRu4R0GeKbcJpr6EZ3lkfm2_X4_VI"
+     }
+    },
+    {
+     "at": "2026-09-26T12:00:00+00:00",
+     "type": "purchase.completed",
+     "details": {
+      "attempt_id": "att_4a0b4e23006946feb776",
+      "order_id": "ord_22b4b3970edd4fd9bec5",
+      "permalink_url": "https://clickclack.fixture.local/orders/ord_22b4b3970edd4fd9bec5",
+      "total_minor": 9700,
+      "currency": "USD",
+      "resolution": "merchant_confirmed"
+     }
+    }
+   ],
+   "evidence": {
+    "art_05d11369d3f24fb8bd93": {
+     "kind": "ap2.consent",
+     "digest": "6s94df11WRjGVeuxk46z5tREQ8IXCgyrlij0A0_siZo",
+     "content": {
+      "disclosures": {
+       "checkout_mandate": "WyJRUDZqamJWRmNYbkRrOFFQQ1I4S3F3Iix7InZjdCI6Im1hbmRhdGUuY2hlY2tv\u2026<811 chars sha256=rbNNn684Z7vTd6Ij>",
+       "items": {
+        "K1-BLK-US": "WyJYeDRUQ0RBcjM1UlhhUGVlQmF4UEh3Iix7ImlkIjoiSzEtQkxLLVVTIiwidGl0bGUiOiJLMSBNZWNoYW5pY2FsIEtleWJvYXJkIChCbGFjaywgVVMpIn1d",
+        "KB-K1-US-B": "WyJDUXZoOGg0c19GdGdzX21jWG5pc093Iix7ImlkIjoiS0ItSzEtVVMtQiIsInRpdGxlIjoiSzEgS2V5Ym9hcmQgVVMgQmxhY2sifV0"
+       },
+       "merchants": {
+        "merchant_a": "WyJ2T3NDUFJGZTNlNWRSME1LTmdCNVJ3Iix7ImlkIjoibWVyY2hhbnRfYSIsIm5hbWUiOiJLZXlib2FyZCBEZXBvdCIsIndlYnNpdGUiOiJodHRwczovL2tleWJvYXJkLWRlcG90LmZpeHR1cmUubG9jYWwifV0",
+        "merchant_b": "WyJVOHVTU2JmaEMwajJPaEFTTmtwVXBRIix7ImlkIjoibWVyY2hhbnRfYiIsIm5hbWUiOiJDbGlja0NsYWNrIFN1cHBseSIsIndlYnNpdGUiOiJodHRwczovL2NsaWNrY2xhY2suZml4dHVyZS5sb2NhbCJ9XQ"
+       },
+       "payees": {
+        "merchant_a": "WyJuWmUxVFAtS3cyTjZfVXp2bEhpU0lRIix7ImlkIjoibWVyY2hhbnRfYSIsIm5hbWUiOiJLZXlib2FyZCBEZXBvdCIsIndlYnNpdGUiOiJodHRwczovL2tleWJvYXJkLWRlcG90LmZpeHR1cmUubG9jYWwifV0",
+        "merchant_b": "WyJZZXdXaWc3SXBPR05haDRLUFFISTV3Iix7ImlkIjoibWVyY2hhbnRfYiIsIm5hbWUiOiJDbGlja0NsYWNrIFN1cHBseSIsIndlYnNpdGUiOiJodHRwczovL2NsaWNrY2xhY2suZml4dHVyZS5sb2NhbCJ9XQ"
+       },
+       "payment_mandate": "WyI4OTN4OGhBQXBnb1U0OG1zNTJxTjVRIix7InZjdCI6Im1hbmRhdGUucGF5bWVu\u2026<1008 chars sha256=vn4Ff8k_vkJjQD1A>"
+      },
+      "full_presentation": "eyJ0eXAiOiJkYytzZC1qd3QiLCJhbGciOiJFUzI1NiIsImtpZCI6ImFnZW50LXBy\u2026<3539 chars sha256=2mkCzVkA_3IYCKp2>",
+      "issuer_jwt": "eyJ0eXAiOiJkYytzZC1qd3QiLCJhbGciOiJFUzI1NiIsImtpZCI6ImFnZW50LXBy\u2026<854 chars sha256=6QTeEhuC11hHvhDq>",
+      "item_merchants": {
+       "K1-BLK-US": "merchant_a",
+       "KB-K1-US-B": "merchant_b"
+      }
+     }
+    },
+    "art_c2aed7d3e7304d9e8f4a": {
+     "kind": "ap2.prepared_presentation",
+     "digest": "I8HkOFQ9Ffq5mta4rXcYaSHsiVDNDu80n-HWAQ0LEJI",
+     "content": {
+      "checkout_hash": "IJSATAcZlTqGqxilAqj_QzLMoUNZFT2ext3A2i45GJo",
+      "checkout_mandate_chain": "eyJ0eXAiOiJkYytzZC1qd3QiLCJhbGciOiJFUzI1NiIsImtpZCI6ImFnZW50LXBy\u2026<3933 chars sha256=ft9Vyvfdy8pyPQx0>",
+      "payment_mandate_chain": "eyJ0eXAiOiJkYytzZC1qd3QiLCJhbGciOiJFUzI1NiIsImtpZCI6ImFnZW50LXBy\u2026<3094 chars sha256=DU8i-HpaR0PjRbj6>"
+     }
+    },
+    "art_bdc93a230fbb485ea90d": {
+     "kind": "ap2.payment_receipt",
+     "digest": "8OQSerRDJKDqPqyOWj2WIFsbvjf2E8PH-iBO-S3SvZA",
+     "content": {
+      "payment_receipt": "eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiIsImtpZCI6ImNyZWRlbnRpYWwtcHJv\u2026<432 chars sha256=wmi51eOyq78veekB>"
+     }
+    },
+    "art_b8a6bc534cea4a5aba69": {
+     "kind": "ucp.complete_request",
+     "digest": "A3JN_Rzi4code5uRu4R0GeKbcJpr6EZ3lkfm2_X4_VI",
+     "content": {
+      "ap2": {
+       "checkout_mandate": "eyJ0eXAiOiJkYytzZC1qd3QiLCJhbGciOiJFUzI1NiIsImtpZCI6ImFnZW50LXBy\u2026<3933 chars sha256=ft9Vyvfdy8pyPQx0>"
+      },
+      "payment": {
+       "instruments": [
+        {
+         "credential": {
+          "token": "<redacted-credential>",
+          "type": "payment_credential+jwt"
+         },
+         "handler_id": "ap2_fixture_handler",
+         "id": "pi_att_4a0b4e23006946feb776",
+         "type": "ap2_mandate"
+        }
+       ]
+      }
+     }
+    },
+    "art_252036d0b396454786a5": {
+     "kind": "ucp.completed_checkout",
+     "digest": "pcm1ZsLIC4mRCG0tyYDaVIhzP7-Orq4pEVwYzd3NjX0",
+     "content": {
+      "ap2": {
+       "checkout_jwt": "eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiIsImtpZCI6Im1lcmNoYW50LWIta2V5\u2026<912 chars sha256=IJSATAcZlTqGqxil>",
+       "checkout_receipt": "eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiIsImtpZCI6Im1lcmNoYW50LWIta2V5\u2026<390 chars sha256=TfhXGluRPHbzswVX>"
+      },
+      "buyer": {
+       "email": "user_demo@example.invalid",
+       "full_name": "Demo User"
+      },
+      "currency": "USD",
+      "expires_at": "2026-09-26T18:00:00Z",
+      "fulfillment": {
+       "address": {
+        "city": "Springfield",
+        "country": "US",
+        "line1": "1 Example Way",
+        "name": "Demo User",
+        "postal_code": "62701",
+        "region": "IL"
+       }
+      },
+      "id": "chk_230a39f7ec744d3abcd0",
+      "line_items": [
+       {
+        "id": "li_1",
+        "item": {
+         "id": "KB-K1-US-B",
+         "price": 8700,
+         "title": "K1 Keyboard US Black"
+        },
+        "quantity": 1,
+        "totals": [
+         {
+          "amount": 8700,
+          "type": "subtotal"
+         },
+         {
+          "amount": 8700,
+          "type": "total"
+         }
+        ]
+       }
+      ],
+      "links": [
+       {
+        "type": "privacy_policy",
+        "url": "https://clickclack.fixture.local/privacy"
+       },
+       {
+        "type": "terms_of_service",
+        "url": "https://clickclack.fixture.local/tos"
+       }
+      ],
+      "merchant": {
+       "id": "merchant_b",
+       "name": "ClickClack Supply",
+       "website": "https://clickclack.fixture.local"
+      },
+      "messages": [],
+      "order": {
+       "id": "ord_22b4b3970edd4fd9bec5",
+       "permalink_url": "https://clickclack.fixture.local/orders/ord_22b4b3970edd4fd9bec5"
+      },
+      "payment": {
+       "handlers": {
+        "dev.ucp.ap2_mandate_compatible_handlers": [
+         {
+          "ap2_version": "0.2",
+          "available_instruments": [
+           {
+            "type": "ap2_mandate"
+           }
+          ],
+          "id": "ap2_fixture_handler",
+          "schema": "https://ap2-protocol.org/schemas/ap2-handler.json",
+          "spec": "https://ap2-protocol.org/ap2/specification/",
+          "version": "2026-08-25"
+         }
+        ],
+        "local.pricewatch.vi_mandate_handlers": [
+         {
+          "available_instruments": [
+           {
+            "type": "vi_mandate"
+           }
+          ],
+          "id": "vi_fixture_handler",
+          "spec": "https://github.com/agent-intent/verifiable-intent",
+          "version": "2026-08-25",
+          "vi_version": "0.1-draft"
+         }
+        ]
+       }
+      },
+      "status": "completed",
+      "totals": [
+       {
+        "amount": 8700,
+        "type": "subtotal"
+       },
+       {
+        "amount": 600,
+        "type": "fulfillment"
+       },
+       {
+        "amount": 400,
+        "type": "tax"
+       },
+       {
+        "amount": 9700,
+        "type": "total"
+       }
+      ],
+      "ucp": {
+       "payment_handlers": {
+        "dev.ucp.ap2_mandate_compatible_handlers": [
+         {
+          "ap2_version": "0.2",
+          "available_instruments": [
+           {
+            "type": "ap2_mandate"
+           }
+          ],
+          "id": "ap2_fixture_handler",
+          "schema": "https://ap2-protocol.org/schemas/ap2-handler.json",
+          "spec": "https://ap2-protocol.org/ap2/specification/",
+          "version": "2026-08-25"
+         }
+        ],
+        "local.pricewatch.vi_mandate_handlers": [
+         {
+          "available_instruments": [
+           {
+            "type": "vi_mandate"
+           }
+          ],
+          "id": "vi_fixture_handler",
+          "spec": "https://github.com/agent-intent/verifiable-intent",
+          "version": "2026-08-25",
+          "vi_version": "0.1-draft"
+         }
+        ]
+       },
+       "status": "success",
+       "version": "2026-08-25"
+      }
+     }
+    },
+    "art_4dc1a216921040efa9e2": {
+     "kind": "ap2.checkout_receipt",
+     "digest": "DNh6d3piXwOAnL5enGAnF23SnU2wCBPU0lwNrP4FGF8",
+     "content": {
+      "checkout_receipt": "eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiIsImtpZCI6Im1lcmNoYW50LWIta2V5\u2026<390 chars sha256=TfhXGluRPHbzswVX>"
+     }
+    }
+   }
+  },
+  "D": {
+   "scenario": {
+    "name": "Demo D \u2014 recovery",
+    "description": "Merchant A qualifies at $98. The completion response is dropped at the network boundary and the worker restarts. The attempt stays claimed, the existing order is recovered via Get Checkout and nothing is bought twice (merchant B also qualifies and must not be used).",
+    "steps": [
+     {
+      "merchant": "merchant_a",
+      "sku": "K1-BLK-US",
+      "item_price_minor": 8900,
+      "shipping_minor": 500,
+      "tax_minor": 400,
+      "fees_minor": 0,
+      "stock": 5
+     },
+     {
+      "merchant": "merchant_b",
+      "sku": "KB-K1-US-B",
+      "item_price_minor": 9000,
+      "shipping_minor": 500,
+      "tax_minor": 400,
+      "fees_minor": 0,
+      "stock": 3
+     }
+    ],
+    "faults": [
+     {
+      "target": "adapter",
+      "fault": "drop_complete_response",
+      "count": 1
+     }
+    ],
+    "expect": {
+     "orders_merchant_a": 1,
+     "orders_merchant_b": 0,
+     "final_status": "purchased"
+    }
+   },
+   "final_status": "purchased",
+   "orders": {
+    "merchant_a": 1,
+    "merchant_b": 0
+   },
+   "metrics": {
+    "evaluation_runs": 1,
+    "observations": 2,
+    "observations_eligible": 2,
+    "qualifying_offers": 2,
+    "purchase_attempts": 1,
+    "unresolved_executions": 1,
+    "purchases_completed": 1
+   },
+   "timeline": [
+    {
+     "at": "2026-09-26T12:00:00+00:00",
+     "type": "watch.created",
+     "details": {
+      "draft": {
+       "original_request": "Buy this exact keyboard if its delivered price drops below $100 before Sunday. Use only these two merchants and buy it once.",
+       "product": {
+        "product_id": "keyboard_k1_black_us",
+        "title": "K1 Mechanical Keyboard \u2014 Black, US layout",
+        "attributes": {
+         "layout": "US",
+         "color": "black",
+         "condition": "new",
+         "connectivity": "wired"
+        },
+        "bundle": false
+       },
+       "merchant_skus": {
+        "merchant_a": "K1-BLK-US",
+        "merchant_b": "KB-K1-US-B"
+       },
+       "quantity": 1,
+       "currency": "USD",
+       "price_rule": {
+        "operator": "lt",
+        "delivered_total_minor": 10000
+       },
+       "allowed_merchants": [
+        "merchant_a",
+        "merchant_b"
+       ],
+       "destination_id": "address_1",
+       "expires_at": "2026-09-27T18:00:00Z",
+       "timezone": "Asia/Kolkata",
+       "max_purchases": 1,
+       "authorization_profile": "ap2",
+       "poll_interval_seconds": 60
+      }
+     }
+    },
+    {
+     "at": "2026-09-26T12:00:00+00:00",
+     "type": "authorization.proposed",
+     "details": {
+      "sentences": [
+       "Product: exactly 'K1 Mechanical Keyboard \u2014 Black, US layout' [ke\u2026<222 chars sha256=H5sFh7kfPINEjIE5>",
+       "Quantity: 1 unit. Maximum successful purchases: 1.",
+       "Price rule: delivered total (item + shipping + tax + mandatory fees \u2212 confirmed discounts) must be strictly below USD 100.00.",
+       "Translated ceiling: the largest qualifying delivered total is USD 99.99 (integer cents; the protocol constraint uses an inclusive maximum of 9999).",
+       "Merchants: only Keyboard Depot (K1-BLK-US), ClickClack Supply (KB-K1-US-B).",
+       "Deadline: authority ends at 2026-09-27T18:00:00+00:00 (Asia/Kolkata). Nothing may be submitted after this instant, even if scheduled before it.",
+       "Authorization profile: AP2 v0.2 (autonomous mandates).",
+       "Destination: address_1."
+      ],
+      "unknowns": []
+     }
+    },
+    {
+     "at": "2026-09-26T12:00:00+00:00",
+     "type": "authorization.granted",
+     "details": {
+      "authorization_id": "auth_2c3c1380876a4b2ebf74",
+      "profile": "ap2",
+      "profile_version": "ap2-v0.2",
+      "reference": "pFaUkYv5XJgkpe1My7psmILJDJc23Ik50JqT16AJKAM",
+      "artifact_id": "art_caa84db7858c48119b81",
+      "summary": {
+       "profile": "ap2",
+       "profile_version": "ap2-v0.2",
+       "delegation_model": "trusted_agent_provider",
+       "open_checkout_mandate": {
+        "vct": "mandate.checkout.open.1",
+        "allowed_merchants": [
+         "merchant_a",
+         "merchant_b"
+        ],
+        "acceptable_items": [
+         "K1-BLK-US",
+         "KB-K1-US-B"
+        ],
+        "quantity": 1
+       },
+       "open_payment_mandate": {
+        "vct": "mandate.payment.open.1",
+        "amount_range": {
+         "currency": "USD",
+         "min": 0,
+         "max": 9999
+        },
+        "allowed_payees": [
+         "merchant_a",
+         "merchant_b"
+        ],
+        "execution_not_after": "2026-09-27T18:00:00Z"
+       },
+       "agent_key_id": "agent-key-1",
+       "expires_at": "2026-09-27T18:00:00Z"
+      }
+     }
+    },
+    {
+     "at": "2026-09-26T12:00:00+00:00",
+     "type": "watch.activated",
+     "details": {
+      "next_check_at": "2026-09-26T12:00:00Z"
+     }
+    },
+    {
+     "at": "2026-09-26T12:00:00+00:00",
+     "type": "candidate.found",
+     "details": {
+      "ranking": [
+       {
+        "merchant_id": "merchant_a",
+        "total_minor": 9800,
+        "observation_id": "obs_90c718ddc358411d97fa"
+       },
+       {
+        "merchant_id": "merchant_b",
+        "total_minor": 9900,
+        "observation_id": "obs_2ac28d9acc554348aec8"
+       }
+      ]
+     }
+    },
+    {
+     "at": "2026-09-26T12:00:00+00:00",
+     "type": "checkout.created",
+     "details": {
+      "merchant_id": "merchant_a",
+      "checkout_id": "chk_0536e67c16a543b79571",
+      "checkout_jwt_kid": "verified"
+     }
+    },
+    {
+     "at": "2026-09-26T12:00:00+00:00",
+     "type": "checkout.validated",
+     "details": {
+      "merchant_id": "merchant_a",
+      "checkout_id": "chk_0536e67c16a543b79571",
+      "total_minor": 9800,
+      "feed_total_minor": 9800,
+      "reasons": [
+       "price_rule_met total=9800 operator=lt threshold=10000"
+      ]
+     }
+    },
+    {
+     "at": "2026-09-26T12:00:00+00:00",
+     "type": "authorization.prepared",
+     "details": {
+      "profile": "ap2",
+      "profile_version": "ap2-v0.2",
+      "checkout_hash": "jTRxYOskAK7sbkGqFXkGHEbXAkbxP38cOk_Q8PmI0l0",
+      "reference": "CazZYs1Hpvl_q0wMgmgVpsoSsY511NXMLgTIiNIORAE",
+      "self_verification": {
+       "ok": true,
+       "code": null,
+       "description": null
+      }
+     }
+    },
+    {
+     "at": "2026-09-26T12:00:00+00:00",
+     "type": "purchase.claimed",
+     "details": {
+      "attempt_id": "att_6434861bc9494260ab60",
+      "merchant_id": "merchant_a",
+      "checkout_id": "chk_0536e67c16a543b79571",
+      "total_minor": 9800,
+      "currency": "USD"
+     }
+    },
+    {
+     "at": "2026-09-26T12:00:00+00:00",
+     "type": "payment.authorization",
+     "details": {
+      "attempt_id": "att_6434861bc9494260ab60",
+      "ok": true,
+      "error": null,
+      "error_description": null
+     }
+    },
+    {
+     "at": "2026-09-26T12:00:00+00:00",
+     "type": "purchase.submitting",
+     "details": {
+      "attempt_id": "att_6434861bc9494260ab60",
+      "idempotency_key": "pw-watch_88cd7b2d09de4a889cba-vimhK1xcMrCk0hSE",
+      "payload_digest": "AHnGhocmQOrEeeMnJEInUGL3KEYth7OnGTssqypwfvg"
+     }
+    },
+    {
+     "at": "2026-09-26T12:00:00+00:00",
+     "type": "purchase.outcome_unknown",
+     "details": {
+      "attempt_id": "att_6434861bc9494260ab60",
+      "reason": "timeout: response to Complete Checkout dropped (fault injection)",
+      "note": "claim retained; order will be reconciled via Get Checkout"
+     }
+    },
+    {
+     "at": "2026-09-26T12:00:00+00:00",
+     "type": "reconciliation.checked",
+     "details": {
+      "attempt_id": "att_6434861bc9494260ab60",
+      "checkout_status": "completed",
+      "order_id": "ord_b32201c6a7be47d5af8f"
+     }
+    },
+    {
+     "at": "2026-09-26T12:00:00+00:00",
+     "type": "purchase.completed",
+     "details": {
+      "attempt_id": "att_6434861bc9494260ab60",
+      "order_id": "ord_b32201c6a7be47d5af8f",
+      "permalink_url": "https://keyboard-depot.fixture.local/orders/ord_b32201c6a7be47d5af8f",
+      "total_minor": 9800,
+      "currency": "USD",
+      "resolution": "recovered_via_get_checkout"
+     }
+    }
+   ],
+   "evidence": {
+    "art_caa84db7858c48119b81": {
+     "kind": "ap2.consent",
+     "digest": "-h5ghzyiwxSvVNXAgBNxx0zAdE4UPylt1ZwAbtNW-Dc",
+     "content": {
+      "disclosures": {
+       "checkout_mandate": "WyJnaGtsM2Z4eXYtSkI4WXBhX21OV3pBIix7InZjdCI6Im1hbmRhdGUuY2hlY2tv\u2026<811 chars sha256=mvGTdJz1KTp0zuYQ>",
+       "items": {
+        "K1-BLK-US": "WyJmVTNMZ0RQWGZrVi1pZmlFRHJoYzRnIix7ImlkIjoiSzEtQkxLLVVTIiwidGl0bGUiOiJLMSBNZWNoYW5pY2FsIEtleWJvYXJkIChCbGFjaywgVVMpIn1d",
+        "KB-K1-US-B": "WyJ2TEQ5SzJybEFCM1ZwTG1DMFRnQ3JBIix7ImlkIjoiS0ItSzEtVVMtQiIsInRpdGxlIjoiSzEgS2V5Ym9hcmQgVVMgQmxhY2sifV0"
+       },
+       "merchants": {
+        "merchant_a": "WyJaZzNsMVVjRGJxNWFJaFVvM3Y2NlBnIix7ImlkIjoibWVyY2hhbnRfYSIsIm5hbWUiOiJLZXlib2FyZCBEZXBvdCIsIndlYnNpdGUiOiJodHRwczovL2tleWJvYXJkLWRlcG90LmZpeHR1cmUubG9jYWwifV0",
+        "merchant_b": "WyJUcW00MW15UkRpS3RZN2ZjckhpbmRBIix7ImlkIjoibWVyY2hhbnRfYiIsIm5hbWUiOiJDbGlja0NsYWNrIFN1cHBseSIsIndlYnNpdGUiOiJodHRwczovL2NsaWNrY2xhY2suZml4dHVyZS5sb2NhbCJ9XQ"
+       },
+       "payees": {
+        "merchant_a": "WyJtd2F4eW1mN0xMblNPMzFoZWJnWkVRIix7ImlkIjoibWVyY2hhbnRfYSIsIm5hbWUiOiJLZXlib2FyZCBEZXBvdCIsIndlYnNpdGUiOiJodHRwczovL2tleWJvYXJkLWRlcG90LmZpeHR1cmUubG9jYWwifV0",
+        "merchant_b": "WyJwaHFWLVE5WEN4cEFKTXZuclpsX0NRIix7ImlkIjoibWVyY2hhbnRfYiIsIm5hbWUiOiJDbGlja0NsYWNrIFN1cHBseSIsIndlYnNpdGUiOiJodHRwczovL2NsaWNrY2xhY2suZml4dHVyZS5sb2NhbCJ9XQ"
+       },
+       "payment_mandate": "WyJwMzE4LWh3N2JWUk1tV0g5Z0NlRjZRIix7InZjdCI6Im1hbmRhdGUucGF5bWVu\u2026<1008 chars sha256=HfJGNmBA7xfqY9uQ>"
+      },
+      "full_presentation": "eyJ0eXAiOiJkYytzZC1qd3QiLCJhbGciOiJFUzI1NiIsImtpZCI6ImFnZW50LXBy\u2026<3539 chars sha256=pFaUkYv5XJgkpe1M>",
+      "issuer_jwt": "eyJ0eXAiOiJkYytzZC1qd3QiLCJhbGciOiJFUzI1NiIsImtpZCI6ImFnZW50LXBy\u2026<854 chars sha256=bdLFVQ-DZCeqUgYD>",
+      "item_merchants": {
+       "K1-BLK-US": "merchant_a",
+       "KB-K1-US-B": "merchant_b"
+      }
+     }
+    },
+    "art_8f42fa8d9e044643b58f": {
+     "kind": "ap2.prepared_presentation",
+     "digest": "wfxdjm5HmTSPrcN0gRj97eydKM25v5Qw8GI866bXQvM",
+     "content": {
+      "checkout_hash": "jTRxYOskAK7sbkGqFXkGHEbXAkbxP38cOk_Q8PmI0l0",
+      "checkout_mandate_chain": "eyJ0eXAiOiJkYytzZC1qd3QiLCJhbGciOiJFUzI1NiIsImtpZCI6ImFnZW50LXBy\u2026<3975 chars sha256=TpWflyqJ2WZFljIl>",
+      "payment_mandate_chain": "eyJ0eXAiOiJkYytzZC1qd3QiLCJhbGciOiJFUzI1NiIsImtpZCI6ImFnZW50LXBy\u2026<3096 chars sha256=BENvVnqlUfmGKSUw>"
+     }
+    },
+    "art_6e1c357c60064816ab3f": {
+     "kind": "ap2.payment_receipt",
+     "digest": "dfrL2KhVEzg6QkuvdRi0G73eta85AMQLFF55zzdbqi4",
+     "content": {
+      "payment_receipt": "eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiIsImtpZCI6ImNyZWRlbnRpYWwtcHJv\u2026<432 chars sha256=5mh4wGhp6_42rE8p>"
+     }
+    },
+    "art_dd96e98dbeef4093a21d": {
+     "kind": "ucp.complete_request",
+     "digest": "AHnGhocmQOrEeeMnJEInUGL3KEYth7OnGTssqypwfvg",
+     "content": {
+      "ap2": {
+       "checkout_mandate": "eyJ0eXAiOiJkYytzZC1qd3QiLCJhbGciOiJFUzI1NiIsImtpZCI6ImFnZW50LXBy\u2026<3975 chars sha256=TpWflyqJ2WZFljIl>"
+      },
+      "payment": {
+       "instruments": [
+        {
+         "credential": {
+          "token": "<redacted-credential>",
+          "type": "payment_credential+jwt"
+         },
+         "handler_id": "ap2_fixture_handler",
+         "id": "pi_att_6434861bc9494260ab60",
+         "type": "ap2_mandate"
+        }
+       ]
+      }
+     }
+    },
+    "art_3909a2b6969c4fb79980": {
+     "kind": "ucp.completed_checkout",
+     "digest": "t-F-14inyU0Ax0bPYHtFuRQp5pR6La0vhf74Nabr9QY",
+     "content": {
+      "ap2": {
+       "checkout_jwt": "eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiIsImtpZCI6Im1lcmNoYW50LWEta2V5\u2026<930 chars sha256=jTRxYOskAK7sbkGq>",
+       "checkout_receipt": "eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiIsImtpZCI6Im1lcmNoYW50LWEta2V5\u2026<396 chars sha256=5WFp93OnB79elI5m>"
+      },
+      "buyer": {
+       "email": "user_demo@example.invalid",
+       "full_name": "Demo User"
+      },
+      "currency": "USD",
+      "expires_at": "2026-09-26T18:00:00Z",
+      "fulfillment": {
+       "address": {
+        "city": "Springfield",
+        "country": "US",
+        "line1": "1 Example Way",
+        "name": "Demo User",
+        "postal_code": "62701",
+        "region": "IL"
+       }
+      },
+      "id": "chk_0536e67c16a543b79571",
+      "line_items": [
+       {
+        "id": "li_1",
+        "item": {
+         "id": "K1-BLK-US",
+         "price": 8900,
+         "title": "K1 Mechanical Keyboard (Black, US)"
+        },
+        "quantity": 1,
+        "totals": [
+         {
+          "amount": 8900,
+          "type": "subtotal"
+         },
+         {
+          "amount": 8900,
+          "type": "total"
+         }
+        ]
+       }
+      ],
+      "links": [
+       {
+        "type": "privacy_policy",
+        "url": "https://keyboard-depot.fixture.local/privacy"
+       },
+       {
+        "type": "terms_of_service",
+        "url": "https://keyboard-depot.fixture.local/tos"
+       }
+      ],
+      "merchant": {
+       "id": "merchant_a",
+       "name": "Keyboard Depot",
+       "website": "https://keyboard-depot.fixture.local"
+      },
+      "messages": [],
+      "order": {
+       "id": "ord_b32201c6a7be47d5af8f",
+       "permalink_url": "https://keyboard-depot.fixture.local/orders/ord_b32201c6a7be47d5af8f"
+      },
+      "payment": {
+       "handlers": {
+        "dev.ucp.ap2_mandate_compatible_handlers": [
+         {
+          "ap2_version": "0.2",
+          "available_instruments": [
+           {
+            "type": "ap2_mandate"
+           }
+          ],
+          "id": "ap2_fixture_handler",
+          "schema": "https://ap2-protocol.org/schemas/ap2-handler.json",
+          "spec": "https://ap2-protocol.org/ap2/specification/",
+          "version": "2026-08-25"
+         }
+        ],
+        "local.pricewatch.vi_mandate_handlers": [
+         {
+          "available_instruments": [
+           {
+            "type": "vi_mandate"
+           }
+          ],
+          "id": "vi_fixture_handler",
+          "spec": "https://github.com/agent-intent/verifiable-intent",
+          "version": "2026-08-25",
+          "vi_version": "0.1-draft"
+         }
+        ]
+       }
+      },
+      "status": "completed",
+      "totals": [
+       {
+        "amount": 8900,
+        "type": "subtotal"
+       },
+       {
+        "amount": 500,
+        "type": "fulfillment"
+       },
+       {
+        "amount": 400,
+        "type": "tax"
+       },
+       {
+        "amount": 9800,
+        "type": "total"
+       }
+      ],
+      "ucp": {
+       "payment_handlers": {
+        "dev.ucp.ap2_mandate_compatible_handlers": [
+         {
+          "ap2_version": "0.2",
+          "available_instruments": [
+           {
+            "type": "ap2_mandate"
+           }
+          ],
+          "id": "ap2_fixture_handler",
+          "schema": "https://ap2-protocol.org/schemas/ap2-handler.json",
+          "spec": "https://ap2-protocol.org/ap2/specification/",
+          "version": "2026-08-25"
+         }
+        ],
+        "local.pricewatch.vi_mandate_handlers": [
+         {
+          "available_instruments": [
+           {
+            "type": "vi_mandate"
+           }
+          ],
+          "id": "vi_fixture_handler",
+          "spec": "https://github.com/agent-intent/verifiable-intent",
+          "version": "2026-08-25",
+          "vi_version": "0.1-draft"
+         }
+        ]
+       },
+       "status": "success",
+       "version": "2026-08-25"
+      }
+     }
+    },
+    "art_5b19c906fe4440d58d4f": {
+     "kind": "ap2.checkout_receipt",
+     "digest": "b2TVhXiBov3iNm-umRkefC3Upx2ibZCFwjFZ7VfOvt4",
+     "content": {
+      "checkout_receipt": "eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiIsImtpZCI6Im1lcmNoYW50LWEta2V5\u2026<396 chars sha256=5WFp93OnB79elI5m>"
+     }
+    }
+   }
+  }
+ }
+}

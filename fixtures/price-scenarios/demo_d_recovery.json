@@ -1,0 +1,12 @@
+{
+  "name": "Demo D — recovery",
+  "description": "Merchant A qualifies at $98. The completion response is dropped at the network boundary and the worker restarts. The attempt stays claimed, the existing order is recovered via Get Checkout and nothing is bought twice (merchant B also qualifies and must not be used).",
+  "steps": [
+    {"merchant": "merchant_a", "sku": "K1-BLK-US", "item_price_minor": 8900, "shipping_minor": 500, "tax_minor": 400, "fees_minor": 0, "stock": 5},
+    {"merchant": "merchant_b", "sku": "KB-K1-US-B", "item_price_minor": 9000, "shipping_minor": 500, "tax_minor": 400, "fees_minor": 0, "stock": 3}
+  ],
+  "faults": [
+    {"target": "adapter", "fault": "drop_complete_response", "count": 1}
+  ],
+  "expect": {"orders_merchant_a": 1, "orders_merchant_b": 0, "final_status": "purchased"}
+}
