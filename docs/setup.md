@@ -1,5 +1,7 @@
 # Setup
 
+[Documentation home](index.md)
+
 ## Requirements
 
 * Python 3.9+ (developed and tested on 3.9.6; containers use 3.12)
@@ -19,7 +21,7 @@ scripts use `export PYTHONPATH=packages:apps` (the Makefile does this).
 ## 2. Fastest demo: all-in-one dev server (no Docker, no Node)
 
 ```bash
-make dev                  # http://localhost:8000/docs
+make dev                  # combined server on http://localhost:8000
 ```
 
 One process hosts the API, both UCP merchant fixtures (mounted at
@@ -31,18 +33,19 @@ once into `fixtures/authorizations/dev_keys.json` (git-ignored).
 Authenticate with `Authorization: Bearer demo-token` (user `user_demo`,
 destination `address_1`).
 
-Drive Demo B from the shell:
+Drive Demo B from the shell on a newly started clock. For a reused simulated server, choose an expiry relative to `clock.now` instead of the host clock:
 
 ```bash
 H='Authorization: Bearer demo-token'
+WATCH_EXPIRES_AT=$(python3 -c 'from datetime import datetime,timedelta,timezone; print((datetime.now(timezone.utc)+timedelta(days=1)).isoformat())')
 # 1. create a draft
-W=$(curl -s -X POST localhost:8000/v1/watches -H "$H" -H 'Idempotency-Key: c1' -H 'Content-Type: application/json' -d @- <<'EOF' | python3 -c 'import sys,json; print(json.load(sys.stdin)["id"])'
-{"original_request":"Buy this exact keyboard if its delivered price drops below $100 before Sunday. Use only these two merchants and buy it once.",
+W=$(curl -s -X POST localhost:8000/v1/watches -H "$H" -H 'Idempotency-Key: c1' -H 'Content-Type: application/json' -d @- <<EOF | python3 -c 'import sys,json; print(json.load(sys.stdin)["id"])'
+{"original_request":"Buy this exact keyboard if its delivered price drops below \$100 within the next day. Use only these two merchants and buy it once.",
  "product":{"product_id":"keyboard_k1_black_us","title":"K1","attributes":{"color":"black"}},
  "merchant_skus":{"merchant_a":"K1-BLK-US","merchant_b":"KB-K1-US-B"},
  "price_rule":{"operator":"lt","delivered_total_minor":10000},
  "allowed_merchants":["merchant_a","merchant_b"],"destination_id":"address_1",
- "expires_at":"2026-09-27T18:00:00+05:30","timezone":"Asia/Kolkata","authorization_profile":"ap2"}
+ "expires_at":"$WATCH_EXPIRES_AT","timezone":"Asia/Kolkata","authorization_profile":"ap2"}
 EOF
 )
 # 2. review the proposal (what will be signed), then approve
@@ -69,7 +72,9 @@ make demo                                         # AP2
 PYTHONPATH=packages:apps:tests .venv/bin/python scripts/run_demo.py vi --out docs/evidence
 ```
 
-## 3. Separate processes (closer to production shape)
+The combined server's root `/docs` belongs to its parent app and does not list the mounted watch routes. The separate API below serves the complete application Swagger UI at `/docs`.
+
+## 3. Separate processes
 
 ```bash
 make merchant-a   # :8101   make merchant-b   # :8102
@@ -91,7 +96,7 @@ shared development keys), `merchant-a`, `merchant-b`, `api` (:8000), `worker`,
 `web` (:3000). The web image is built from `apps/web/Dockerfile`; set
 `PUBLIC_API_URL` if the API is not on `localhost:8000`.
 
-If the default host ports are already taken, remap them (this machine needed
+If the default host ports are already taken, remap them (the recorded development run used
 5433 / 8002 / 3001 / 8103 because other compose stacks held 5432 / 8000 / 3000 / 8102):
 
 ```bash
@@ -112,7 +117,7 @@ See `.env.example`. Notable knobs: `POLL_INTERVAL_SECONDS`, `POLL_JITTER_SECONDS
 `MERCHANT_BACKOFF_BASE_SECONDS`, `ARTIFACT_ENCRYPTION_KEY` (Fernet key derivation
 for protected artifacts), `DEMO_CONTROLS`.
 
-## 6. Verification status of this build
+## 6. Recorded verification status (2026-09-26)
 
 * Backend, protocol fixtures, worker, API and demos are exercised by the test
   suite (`docs/test-report.md`) on Python 3.9 / SQLite.

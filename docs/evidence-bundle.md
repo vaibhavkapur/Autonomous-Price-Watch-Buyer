@@ -1,5 +1,7 @@
 # Evidence bundle
 
+[Documentation home](index.md)
+
 `docs/evidence/evidence-bundle-ap2.json` and `docs/evidence/evidence-bundle-vi.json`
 are produced by `scripts/run_demo.py <profile> --out docs/evidence`. Each bundle
 holds, per demo A–D: the price scenario, the final watch status, per-merchant order
