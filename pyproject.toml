@@ -1,0 +1,26 @@
+[project]
+name = "autonomous-price-watch"
+version = "0.1.0"
+description = "Durable price watcher with delegated purchase authority (UCP checkout, AP2 / Verifiable Intent authorization)"
+requires-python = ">=3.9"
+dependencies = [
+  "fastapi>=0.115",
+  "uvicorn>=0.30",
+  "sqlalchemy>=2.0",
+  "pydantic>=2",
+  "httpx>=0.27",
+  "joserfc>=1.0",
+  "cryptography>=42",
+  "pyyaml>=6",
+  "psycopg[binary]>=3.1; extra == 'postgres'",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "pytest-asyncio>=0.23"]
+postgres = ["psycopg[binary]>=3.1"]
+
+[tool.pytest.ini_options]
+pythonpath = ["packages", "apps", "."]
+testpaths = ["tests"]
+addopts = "-q"
+filterwarnings = ["ignore::DeprecationWarning"]

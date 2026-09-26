@@ -1,0 +1,8 @@
+{
+  "name": "Demo A — deceptive item price",
+  "description": "Item falls to $89 but shipping $12 + tax $4 push the delivered total to $105. Must be rejected for a strict 'below $100' rule.",
+  "steps": [
+    {"merchant": "merchant_a", "sku": "K1-BLK-US", "item_price_minor": 8900, "shipping_minor": 1200, "tax_minor": 400, "fees_minor": 0, "stock": 5}
+  ],
+  "expect": {"delivered_total_minor": 10500, "eligible": false}
+}

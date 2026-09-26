@@ -1,0 +1,16 @@
+{
+  "products": [
+    {
+      "product_id": "keyboard_k1_black_us",
+      "title": "K1 Mechanical Keyboard — Black, US layout",
+      "attributes": {"layout": "US", "color": "black", "condition": "new", "connectivity": "wired"},
+      "bundle": false
+    },
+    {
+      "product_id": "keyboard_k1_white_us",
+      "title": "K1 Mechanical Keyboard — White, US layout",
+      "attributes": {"layout": "US", "color": "white", "condition": "new", "connectivity": "wired"},
+      "bundle": false
+    }
+  ]
+}

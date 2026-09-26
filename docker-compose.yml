@@ -1,0 +1,95 @@
+# Local environment: PostgreSQL (authoritative store), API, durable worker,
+# two UCP merchant fixtures and the web UI. No Redis: the database is the
+# schedule; queue messages would only be hints.
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: pricewatch
+      POSTGRES_PASSWORD: pricewatch
+      POSTGRES_DB: pricewatch
+    ports: ["${POSTGRES_PORT:-5432}:5432"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U pricewatch"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  migrate:
+    build: .
+    command: python scripts/migrate.py
+    environment:
+      DATABASE_URL: postgresql+psycopg://pricewatch:pricewatch@postgres:5432/pricewatch
+      DEV_KEYS_PATH: /keys/dev_keys.json
+    volumes: [devkeys:/keys]
+    depends_on:
+      postgres: { condition: service_healthy }
+
+  merchant-a:
+    build: .
+    command: python apps/merchant_a/main.py
+    environment: &merchant_env
+      PORT: "8101"
+      DEV_KEYS_PATH: /keys/dev_keys.json
+      MERCHANT_BASE_URL: http://merchant-a:8101
+    volumes: [devkeys:/keys]
+    ports: ["${MERCHANT_A_PORT:-8101}:8101"]
+    depends_on:
+      migrate: { condition: service_completed_successfully }
+
+  merchant-b:
+    build: .
+    command: python apps/merchant_b/main.py
+    environment:
+      <<: *merchant_env
+      PORT: "8102"
+      MERCHANT_BASE_URL: http://merchant-b:8102
+    volumes: [devkeys:/keys]
+    ports: ["${MERCHANT_B_PORT:-8102}:8102"]
+    depends_on:
+      migrate: { condition: service_completed_successfully }
+
+  api:
+    build: .
+    command: uvicorn --factory api.main:create_app --host 0.0.0.0 --port 8000
+    environment: &app_env
+      APP_PROFILE: development
+      DEMO_CONTROLS: "true"
+      DATABASE_URL: postgresql+psycopg://pricewatch:pricewatch@postgres:5432/pricewatch
+      DEV_KEYS_PATH: /keys/dev_keys.json
+      MERCHANT_A_URL: http://merchant-a:8101
+      MERCHANT_B_URL: http://merchant-b:8102
+      API_CORS_ORIGINS: ${API_CORS_ORIGINS:-http://localhost:3000}
+      ARTIFACT_ENCRYPTION_KEY: dev-only-change-me
+      POLL_INTERVAL_SECONDS: "30"
+    volumes: [devkeys:/keys]
+    ports: ["${API_PORT:-8000}:8000"]
+    depends_on:
+      migrate: { condition: service_completed_successfully }
+      merchant-a: { condition: service_started }
+      merchant-b: { condition: service_started }
+
+  worker:
+    build: .
+    command: python apps/worker/main.py
+    environment:
+      <<: *app_env
+      WORKER_ID: worker-1
+      WORKER_TICK_SECONDS: "2"
+    volumes: [devkeys:/keys]
+    depends_on:
+      api: { condition: service_started }
+
+  web:
+    build:
+      context: ./apps/web
+      args:
+        NEXT_PUBLIC_API_URL: ${PUBLIC_API_URL:-http://localhost:8000}
+    ports: ["${WEB_PORT:-3000}:3000"]
+    depends_on: [api]
+
+volumes:
+  pgdata: {}
+  devkeys: {}

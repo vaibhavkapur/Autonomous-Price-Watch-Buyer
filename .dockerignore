@@ -1,0 +1,10 @@
+.venv
+.git
+apps/web/node_modules
+apps/web/.next
+data
+**/__pycache__
+**/*.pyc
+.pytest_cache
+docs
+*.md

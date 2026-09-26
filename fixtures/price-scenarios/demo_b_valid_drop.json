@@ -1,0 +1,8 @@
+{
+  "name": "Demo B — valid drop",
+  "description": "Item $89 + shipping $5 + tax $4 = $98 delivered. Qualifies for 'below $100'; the agent buys once while the user is absent.",
+  "steps": [
+    {"merchant": "merchant_a", "sku": "K1-BLK-US", "item_price_minor": 8900, "shipping_minor": 500, "tax_minor": 400, "fees_minor": 0, "stock": 5}
+  ],
+  "expect": {"delivered_total_minor": 9800, "eligible": true}
+}
