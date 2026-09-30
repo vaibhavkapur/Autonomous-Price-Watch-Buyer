@@ -1,11 +1,11 @@
 # Demo script (for the recorded walkthrough)
 
-Recording itself is not produced by this repository; this is the shot list.
-Every demo runs on the **simulated clock** shown in the top-right badge of the UI
-and in `clock.simulated` on the API.
+[Documentation home](index.md)
 
-Preparation: `make dev` (API + merchants + worker) and `make web` (UI) or use the
-`/docs` Swagger page. Log in with `demo-token`.
+Recording itself is not produced by this repository; this is the shot list.
+With `make dev`, demos use the **simulated clock** shown in the UI and in `clock.simulated` on watch responses. Separate processes and Compose use their configured bootstrap clock; check the clock label before advancing time.
+
+Preparation: `make dev` (API + merchants + worker) and `make web` (UI) or use the shell walkthrough in [Setup](setup.md). The standalone `make api` process provides the complete `/docs` Swagger page. Log in with `demo-token`.
 
 ## Demo A — deceptive item price (≈1 min)
 
